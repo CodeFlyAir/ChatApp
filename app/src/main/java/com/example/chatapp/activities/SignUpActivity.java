@@ -47,7 +47,11 @@ public class SignUpActivity extends AppCompatActivity
     {
         binding.invokeSignIn.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, SignInActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
         
-        binding.buttonSignUp.setOnClickListener(v -> signUp());
+        binding.buttonSignUp.setOnClickListener(v ->
+        {
+            if ( isValidCredentials() )
+                signUp();
+        });
         
         binding.imageLayout.setOnClickListener(v ->
         {
