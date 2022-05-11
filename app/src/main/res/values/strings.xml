@@ -12,4 +12,5 @@
     <string name="sign_up">sign up</string>
     <string name="sign_in_instead">Sign In instead</string>
     <string name="name">Name</string>
+    <string name="select_user">Select User</string>
 </resources>
