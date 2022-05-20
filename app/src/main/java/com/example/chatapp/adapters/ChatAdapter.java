@@ -1,6 +1,7 @@
 package com.example.chatapp.adapters;
 
 import android.graphics.Bitmap;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -32,19 +33,43 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType)
     {
-        return null;
+        if ( viewType == VIEW_TYPE_SENT )
+        {
+            return new SentMessageViewHolder(
+                    ItemContainerSentMessageBinding.inflate(LayoutInflater.from(parent.getContext()),
+                            parent, false));
+        }
+        else
+        {
+            return new ReceivedMessageViewHolder(
+                    ItemContainerRecievedMessageBinding.inflate(LayoutInflater.from(parent.getContext()),
+                            parent, false));
+            
+        }
     }
     
     @Override
     public void onBindViewHolder (@NonNull RecyclerView.ViewHolder holder, int position)
     {
-    
+        if ( getItemViewType(position) == VIEW_TYPE_SENT )
+            ((SentMessageViewHolder) holder).setData(chatMessages.get(position));
+        else
+            ((ReceivedMessageViewHolder) holder).setData(chatMessages.get(position),receiverProfileImage);
     }
     
     @Override
     public int getItemCount ()
     {
-        return 0;
+        return chatMessages.size();
+    }
+    
+    @Override
+    public int getItemViewType (int position)
+    {
+        if ( chatMessages.get(position).senderId.equals(senderId) )
+            return VIEW_TYPE_SENT;
+        else
+            return VIEW_TYPE_RECEIVED;
     }
     
     static class SentMessageViewHolder extends RecyclerView.ViewHolder
