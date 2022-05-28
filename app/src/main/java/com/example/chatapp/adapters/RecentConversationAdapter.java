@@ -3,6 +3,7 @@ package com.example.chatapp.adapters;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -26,19 +27,24 @@ public class RecentConversationAdapter extends RecyclerView.Adapter<RecentConver
     @Override
     public ConversationViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType)
     {
-        return null;
+        return new ConversationViewHolder(
+                ItemContainerRecentConversationBinding.inflate(
+                        LayoutInflater.from(parent.getContext())
+                        , parent
+                        , false)
+        );
     }
     
     @Override
     public void onBindViewHolder (@NonNull ConversationViewHolder holder, int position)
     {
-    
+        holder.setData(chatMessages.get(position));
     }
     
     @Override
     public int getItemCount ()
     {
-        return 0;
+        return chatMessages.size();
     }
     
     class ConversationViewHolder extends RecyclerView.ViewHolder
@@ -51,7 +57,7 @@ public class RecentConversationAdapter extends RecyclerView.Adapter<RecentConver
             binding = itemContainerRecentConversationBinding;
         }
         
-        void setData(ChatMessage chatMessage)
+        void setData (ChatMessage chatMessage)
         {
             binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
             binding.textName.setText(chatMessage.conversationName);
