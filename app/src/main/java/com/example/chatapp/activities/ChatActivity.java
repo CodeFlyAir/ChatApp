@@ -14,7 +14,9 @@ import com.example.chatapp.models.ChatMessage;
 import com.example.chatapp.models.Users;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -35,6 +37,7 @@ public class ChatActivity extends AppCompatActivity
     private ChatAdapter chatAdapter;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
+    private String conversationId = null;
     
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -72,6 +75,13 @@ public class ChatActivity extends AppCompatActivity
                 .addSnapshotListener(eventListener);
     }
     
+    private void addConversation(HashMap<String,Object> conversations)
+    {
+        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .add(conversations)
+                .addOnSuccessListener(documentReference -> conversationId= documentReference.getId());
+    }
+    
     private final EventListener<QuerySnapshot> eventListener = (value, error) ->
     {
         if ( error != null )
@@ -104,6 +114,10 @@ public class ChatActivity extends AppCompatActivity
             binding.chatRecyclerView.setVisibility(View.VISIBLE);
         }
         binding.progressBar.setVisibility(View.GONE);
+        if ( conversationId == null )
+        {
+            checkForConversationDriver();
+        }
     };
     
     private void init ()
@@ -141,4 +155,37 @@ public class ChatActivity extends AppCompatActivity
     {
         return new SimpleDateFormat("MMMM dd yyyy - hh:mm a", Locale.getDefault()).format(date);
     }
+    
+    private void checkForConversationDriver ()
+    {
+        if ( chatMessages.size() != 0 )
+        {
+            checkForConversation(
+                    receiverUser.id
+                    , preferenceManager.getString(Constants.KEY_USER_ID));
+            checkForConversation(
+                    preferenceManager.getString(Constants.KEY_USER_ID)
+                    , receiverUser.id
+            );
+        }
+    }
+    
+    private void checkForConversation (String senderId, String receiverId)
+    {
+        database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .whereEqualTo(Constants.KEY_SENDER_ID, senderId)
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverId)
+                .get()
+                .addOnCompleteListener(conversationOnCompleteListener);
+    }
+    
+    private final OnCompleteListener<QuerySnapshot> conversationOnCompleteListener = task ->
+    {
+        if ( task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0 )
+        {
+            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+            conversationId = documentSnapshot.getId();
+        }
+        
+    };
 }
