@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
-            Collections.sort(conversations, (obj1, obj2) -> obj1.dateObject.compareTo(obj2.dateObject));
+            Collections.sort(conversations, (obj1, obj2) -> obj2.dateObject.compareTo(obj1.dateObject));
             conversationAdapter.notifyDataSetChanged();
             if ( conversations.size() != 0 )
                 binding.conversationRecyclerView.smoothScrollToPosition(conversations.size() - 1);
