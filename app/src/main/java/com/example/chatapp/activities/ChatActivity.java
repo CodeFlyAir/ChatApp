@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.chatapp.adapters.ChatAdapter;
 import com.example.chatapp.databinding.ActivityChatBinding;
 import com.example.chatapp.models.ChatMessage;
@@ -29,8 +27,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-public class ChatActivity extends AppCompatActivity
+public class ChatActivity extends BaseActivity
 {
     private ActivityChatBinding binding;
     private Users receiverUser;
@@ -39,6 +38,7 @@ public class ChatActivity extends AppCompatActivity
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
     private String conversationId = null;
+    private boolean isReceiverAvailable = false;
     
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -61,24 +61,49 @@ public class ChatActivity extends AppCompatActivity
         message.put(Constants.KEY_TIMESTAMP, new Date());
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
         
-        if(conversationId!=null)
+        if ( conversationId != null )
         {
             updateConversation(binding.inputMessage.getText().toString());
         }
         else
         {
-            HashMap<String,Object> conversation = new HashMap<>();
-            conversation.put(Constants.KEY_SENDER_ID,preferenceManager.getString(Constants.KEY_USER_ID));
-            conversation.put(Constants.KEY_SENDER_NAME,preferenceManager.getString(Constants.KEY_NAME));
-            conversation.put(Constants.KEY_SENDER_IMAGE,preferenceManager.getString(Constants.KEY_IMAGE));
-            conversation.put(Constants.KEY_RECEIVER_ID,receiverUser.id);
-            conversation.put(Constants.KEY_RECEIVER_NAME,receiverUser.name);
-            conversation.put(Constants.KEY_RECEIVER_IMAGE,receiverUser.image);
-            conversation.put(Constants.KEY_LAST_MESSAGE,binding.inputMessage.getText().toString());
-            conversation.put(Constants.KEY_TIMESTAMP,new Date());
+            HashMap<String, Object> conversation = new HashMap<>();
+            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
+            conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
+            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+            conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.name);
+            conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
+            conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
+            conversation.put(Constants.KEY_TIMESTAMP, new Date());
             addConversation(conversation);
         }
         binding.inputMessage.setText(null);
+    }
+    
+    private void listenAvailabilityOfReceiver ()
+    {
+        database.collection(Constants.KEY_COLLECTION_USERS)
+                .document(receiverUser.id)
+                .addSnapshotListener(ChatActivity.this, (value, error) ->
+                {
+                    if ( error != null )
+                        return;
+                    if ( value != null )
+                    {
+                        if ( value.getLong(Constants.KEY_AVAILABILITY) != null )
+                        {
+                            int availability = Objects.requireNonNull(
+                                    value.getLong(Constants.KEY_AVAILABILITY)
+                            ).intValue();
+                            isReceiverAvailable = availability == 1;
+                        }
+                    }
+                    if ( isReceiverAvailable )
+                        binding.textAvailability.setVisibility(View.VISIBLE);
+                    else
+                        binding.textAvailability.setVisibility(View.GONE);
+                });
     }
     
     private void listenMessages ()
@@ -217,4 +242,11 @@ public class ChatActivity extends AppCompatActivity
         }
         
     };
+    
+    @Override
+    protected void onResume ()
+    {
+        super.onResume();
+        listenAvailabilityOfReceiver();
+    }
 }
