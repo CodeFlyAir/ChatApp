@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatapp.adapters.RecentConversationAdapter;
 import com.example.chatapp.databinding.ActivityMainBinding;
+import com.example.chatapp.listeners.ConversationListener;
 import com.example.chatapp.models.ChatMessage;
+import com.example.chatapp.models.Users;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentChange;
@@ -30,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements ConversationListener
 {
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private void init ()
     {
         conversations = new ArrayList<>();
-        conversationAdapter = new RecentConversationAdapter(conversations);
+        conversationAdapter = new RecentConversationAdapter(conversations,this);
         binding.conversationRecyclerView.setAdapter(conversationAdapter);
         database = FirebaseFirestore.getInstance();
     }
@@ -188,5 +190,13 @@ public class MainActivity extends AppCompatActivity
                     showToast("Sign Out Failed");
                     Log.d("FCM", e.getMessage());
                 });
+    }
+    
+    @Override
+    public void OnConversationClicked (Users user)
+    {
+        Intent intent=new Intent(getApplicationContext(),ChatActivity.class);
+        intent.putExtra(Constants.KEY_USER,user);
+        startActivity(intent);
     }
 }
