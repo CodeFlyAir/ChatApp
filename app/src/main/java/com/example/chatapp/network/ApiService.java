@@ -10,8 +10,8 @@ import retrofit2.http.POST;
 public interface ApiService
 {
     @POST("send")
-    Call<String> sendMessage(
-            @HeaderMap HashMap<String,String> headers,
+    Call<String> sendMessage (
+            @HeaderMap HashMap<String, String> headers,
             @Body String messageBody
-            );
+    );
 }

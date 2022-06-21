@@ -21,10 +21,10 @@ public class RecentConversationAdapter extends RecyclerView.Adapter<RecentConver
     private final List<ChatMessage> chatMessages;
     private final ConversationListener conversationListener;
     
-    public RecentConversationAdapter (List<ChatMessage> chatMessages,ConversationListener conversationListener)
+    public RecentConversationAdapter (List<ChatMessage> chatMessages, ConversationListener conversationListener)
     {
         this.chatMessages = chatMessages;
-        this.conversationListener=conversationListener;
+        this.conversationListener = conversationListener;
     }
     
     @NonNull
@@ -66,12 +66,12 @@ public class RecentConversationAdapter extends RecyclerView.Adapter<RecentConver
             binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
             binding.textName.setText(chatMessage.conversationName);
             binding.textRecentMessages.setText(chatMessage.message);
-            binding.getRoot().setOnClickListener(v->
+            binding.getRoot().setOnClickListener(v ->
             {
-                Users users=new Users();
-                users.id=chatMessage.conversationId;
-                users.name=chatMessage.conversationName;
-                users.image=chatMessage.conversationImage;
+                Users users = new Users();
+                users.id = chatMessage.conversationId;
+                users.name = chatMessage.conversationName;
+                users.image = chatMessage.conversationImage;
                 conversationListener.OnConversationClicked(users);
             });
         }

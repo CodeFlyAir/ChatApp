@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements ConversationListener
     private void init ()
     {
         conversations = new ArrayList<>();
-        conversationAdapter = new RecentConversationAdapter(conversations,this);
+        conversationAdapter = new RecentConversationAdapter(conversations, this);
         binding.conversationRecyclerView.setAdapter(conversationAdapter);
         database = FirebaseFirestore.getInstance();
     }
@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity implements ConversationListener
     
     private void updateToken (String token)
     {
-        preferenceManager.putString(Constants.KEY_FCM_TOKEN,token);
+        preferenceManager.putString(Constants.KEY_FCM_TOKEN, token);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference documentReference = firestore.collection(Constants.KEY_COLLECTION_USERS)
                 .document(preferenceManager.getString(Constants.KEY_USER_ID));
@@ -194,8 +194,8 @@ public class MainActivity extends BaseActivity implements ConversationListener
     @Override
     public void OnConversationClicked (Users user)
     {
-        Intent intent=new Intent(getApplicationContext(),ChatActivity.class);
-        intent.putExtra(Constants.KEY_USER,user);
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        intent.putExtra(Constants.KEY_USER, user);
         startActivity(intent);
     }
 }

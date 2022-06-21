@@ -27,9 +27,9 @@ public class SignInActivity extends AppCompatActivity
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
         
-        if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN))
+        if ( preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN) )
         {
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
         setListeners();

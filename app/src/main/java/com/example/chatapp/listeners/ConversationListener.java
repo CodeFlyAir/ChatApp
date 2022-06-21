@@ -4,5 +4,5 @@ import com.example.chatapp.models.Users;
 
 public interface ConversationListener
 {
-    void OnConversationClicked(Users user);
+    void OnConversationClicked (Users user);
 }
