@@ -41,10 +41,11 @@
             android:layout_marginTop="@dimen/_40sdp"
             android:inputType="textEmailAddress"
             android:hint="@string/email"
+            android:textColorHint="@color/secondary_text"
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary_hint"
             android:textSize="@dimen/_13ssp"
             android:importantForAutofill="no"/>
 
@@ -59,7 +60,8 @@
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary_hint"
+            android:textColorHint="@color/secondary_text"
             android:textSize="@dimen/_13ssp"
             android:importantForAutofill="no"/>
 

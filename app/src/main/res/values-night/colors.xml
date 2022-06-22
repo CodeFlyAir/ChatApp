@@ -2,15 +2,15 @@
 <resources>
     <color name="primary">#1C2E46</color>
     <color name="primary_dark">#142232</color>
-    <color name="primary_text">#212121</color>
+    <color name="primary_text">#ffffff</color>
     <color name="primary_hint">#212121</color>
-    <color name="secondary_text">#757575</color>
-    <color name="primary_background">#FFFFFF</color>
+    <color name="secondary_text">#6C6969</color>
+    <color name="primary_background">#1C1B1B</color>
     <color name="input_background">#ECECEC</color>
     <color name="icon_background">#20FFFFFF</color>
     <color name="error">#B00020</color>
-    <color name="received_message_background">#090D16</color>
-    <color name="sent_message_background">#090D16</color>
+    <color name="received_message_background">#504F4F</color>
+    <color name="sent_message_background">#504F4F</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

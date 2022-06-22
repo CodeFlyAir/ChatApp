@@ -60,8 +60,9 @@
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary_hint"
             android:textSize="@dimen/_13ssp"
+            android:textColorHint="@color/secondary_text"
             android:importantForAutofill="no"/>
 
         <EditText
@@ -75,7 +76,8 @@
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary_hint"
+            android:textColorHint="@color/secondary_text"
             android:textSize="@dimen/_13ssp"
             android:importantForAutofill="no"/>
 
@@ -90,7 +92,8 @@
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary_hint"
+            android:textColorHint="@color/secondary_text"
             android:textSize="@dimen/_13ssp"
             android:importantForAutofill="no"/>
 
@@ -105,7 +108,8 @@
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary_hint"
+            android:textColorHint="@color/secondary_text"
             android:textSize="@dimen/_13ssp"
             android:importantForAutofill="no"/>
 

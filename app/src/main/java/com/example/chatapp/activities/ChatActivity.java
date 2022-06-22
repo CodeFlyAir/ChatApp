@@ -87,7 +87,7 @@ public class ChatActivity extends BaseActivity
             conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
             conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.name);
             conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
-            conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
+            conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString().trim());
             conversation.put(Constants.KEY_TIMESTAMP, new Date());
             addConversation(conversation);
         }
