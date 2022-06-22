@@ -1,12 +1,15 @@
 package com.example.chatapp.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.chatapp.databinding.ActivitySignInBinding;
 import com.example.chatapp.utilities.Constants;
@@ -26,6 +29,9 @@ public class SignInActivity extends AppCompatActivity
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+    
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS},
+                PackageManager.PERMISSION_GRANTED);
         
         if ( preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN) )
         {
@@ -56,7 +62,7 @@ public class SignInActivity extends AppCompatActivity
         progress(true);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection(Constants.KEY_COLLECTION_USERS)
-                .whereEqualTo(Constants.KEY_EMAIL, binding.inputEmail.getText().toString().trim())
+                .whereEqualTo(Constants.KEY_PHONE, binding.inputPhone.getText().toString().trim())
                 .whereEqualTo(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString().trim())
                 .get()
                 .addOnCompleteListener(task ->
@@ -98,14 +104,14 @@ public class SignInActivity extends AppCompatActivity
     
     private Boolean isValidSignInCredentials ()
     {
-        if ( binding.inputEmail.getText().toString().trim().isEmpty() )
+        if ( binding.inputPhone.getText().toString().trim().isEmpty() )
         {
             showToast("Enter Email-Id");
             return false;
         }
-        else if ( !Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString().trim()).matches() )
+        else if ( !Patterns.PHONE.matcher(binding.inputPhone.getText().toString().trim()).matches() )
         {
-            showToast("Enter valid email");
+            showToast("Enter valid phone number");
             return false;
         }
         else if ( binding.inputPassword.getText().toString().trim().isEmpty() )

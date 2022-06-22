@@ -7,7 +7,7 @@
     <string name="welcome_back">Welcome Back</string>
     <string name="welcome">Welcome</string>
     <string name="add_image">Add Image</string>
-    <string name="email">Email</string>
+    <string name="phone">Phone Number</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">sign up</string>
     <string name="sign_in_instead">Sign In instead</string>

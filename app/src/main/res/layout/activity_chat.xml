@@ -40,7 +40,7 @@
 
     <TextView
         android:id="@+id/textName"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center"
@@ -55,18 +55,15 @@
 
     <TextView
         android:id="@+id/textAvailability"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:padding="@dimen/_2sdp"
         android:text="@string/online"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/_10ssp"
         android:visibility="gone"
-        android:paddingStart="@dimen/_10sdp"
-        android:paddingEnd="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/textName"
         app:layout_constraintStart_toStartOf="@id/textName"
         app:layout_constraintEnd_toEndOf="@id/textName"

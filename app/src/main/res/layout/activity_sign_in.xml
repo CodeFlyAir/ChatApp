@@ -34,13 +34,13 @@
             android:layout_marginTop="@dimen/_4sdp"/>
 
         <EditText
-            android:id="@+id/inputEmail"
+            android:id="@+id/inputPhone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:background="@drawable/background_input"
             android:layout_marginTop="@dimen/_40sdp"
-            android:inputType="textEmailAddress"
-            android:hint="@string/email"
+            android:inputType="phone"
+            android:hint="@string/phone"
             android:textColorHint="@color/secondary_text"
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"

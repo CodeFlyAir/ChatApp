@@ -1,6 +1,8 @@
 package com.example.chatapp.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,6 +10,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.chatapp.adapters.RecentConversationAdapter;
 import com.example.chatapp.databinding.ActivityMainBinding;
@@ -64,7 +69,18 @@ public class MainActivity extends BaseActivity implements ConversationListener
     private void setListeners ()
     {
         binding.imageSignOut.setOnClickListener(v -> signOut());
-        binding.fabNewChat.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
+        binding.fabNewChat.setOnClickListener(v ->
+        {
+            if ( ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED )
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS},
+                        PackageManager.PERMISSION_GRANTED);
+            }
+            if ( ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED )
+            {
+                startActivity(new Intent(getApplicationContext(), UsersActivity.class));
+            }
+        });
     }
     
     private void loadUserDetails ()

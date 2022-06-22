@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         HashMap<String, Object> map = new HashMap<>();
         map.put(Constants.KEY_NAME, binding.inputName.getText().toString().trim());
-        map.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString().trim());
+        map.put(Constants.KEY_PHONE, binding.inputPhone.getText().toString().trim());
         map.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString().trim());
         map.put(Constants.KEY_IMAGE, encodedImage);
         firestore.collection(Constants.KEY_COLLECTION_USERS)
@@ -162,14 +162,14 @@ public class SignUpActivity extends AppCompatActivity
             showToast("Enter Name");
             return false;
         }
-        else if ( binding.inputEmail.getText().toString().trim().isEmpty() )
+        else if ( binding.inputPhone.getText().toString().trim().isEmpty() )
         {
-            showToast("Enter Email-Id");
+            showToast("Enter Phone Number");
             return false;
         }
-        else if ( !Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString().trim()).matches() )
+        else if ( !Patterns.PHONE.matcher(binding.inputPhone.getText().toString().trim()).matches() )
         {
-            showToast("Enter valid email");
+            showToast("Enter valid Phone Number");
             return false;
         }
         else if ( binding.inputPassword.getText().toString().trim().isEmpty() )
