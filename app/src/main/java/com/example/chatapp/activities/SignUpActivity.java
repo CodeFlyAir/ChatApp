@@ -329,6 +329,11 @@ public class SignUpActivity extends AppCompatActivity
             showToast("Confirm Password");
             return false;
         }
+        else if ( binding.inputPassword.getText().toString().trim().length()<6 )
+        {
+            showToast("Minimum Password length is 6");
+            return false;
+        }
         else if ( !binding.inputPassword.getText().toString().trim().equals(binding.inputConfirmPassword.getText().toString().trim()) )
         {
             showToast("Password and Confirm Password fields must match");
