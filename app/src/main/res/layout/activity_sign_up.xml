@@ -19,11 +19,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/oxygen"
             android:text="@string/welcome"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/_24ssp"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/_20sdp"/>
+            android:textStyle="bold" />
 
         <FrameLayout
             android:id="@+id/imageLayout"
@@ -43,27 +44,29 @@
                 android:id="@+id/textAddImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_image"
                 android:layout_gravity="center"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/secondary_text"/>
+                android:fontFamily="@font/adamina"
+                android:text="@string/add_image"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/_12ssp" />
         </FrameLayout>
 
         <EditText
             android:id="@+id/inputName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/background_input"
             android:layout_marginTop="@dimen/_20sdp"
-            android:inputType="text"
+            android:background="@drawable/background_input"
+            android:fontFamily="@font/adamina"
             android:hint="@string/name"
+            android:importantForAutofill="no"
+            android:inputType="text"
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
             android:textColor="@color/primary_hint"
-            android:textSize="@dimen/_13ssp"
             android:textColorHint="@color/secondary_text"
-            android:importantForAutofill="no"/>
+            android:textSize="@dimen/_13ssp" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -75,6 +78,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/background_input"
+                android:fontFamily="@font/adamina"
                 android:gravity="center"
                 android:padding="@dimen/_8sdp"
                 android:paddingStart="@dimen/_14sdp"
@@ -87,53 +91,55 @@
                 android:id="@+id/inputPhone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:background="@drawable/background_input"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:inputType="phone"
+                android:layout_toEndOf="@id/code"
+                android:background="@drawable/background_input"
+                android:fontFamily="@font/adamina"
                 android:hint="@string/phone"
+                android:importantForAutofill="no"
+                android:inputType="phone"
                 android:padding="@dimen/_8sdp"
                 android:paddingStart="@dimen/_14sdp"
                 android:paddingEnd="@dimen/_14sdp"
                 android:textColor="@color/primary_hint"
                 android:textColorHint="@color/secondary_text"
-                android:textSize="@dimen/_13ssp"
-                android:importantForAutofill="no"
-                android:layout_toEndOf="@id/code"/>
+                android:textSize="@dimen/_13ssp" />
         </RelativeLayout>
-
 
 
         <EditText
             android:id="@+id/inputPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/background_input"
             android:layout_marginTop="@dimen/_20sdp"
-            android:inputType="textPassword"
+            android:background="@drawable/background_input"
+            android:fontFamily="@font/adamina"
             android:hint="@string/password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
             android:textColor="@color/primary_hint"
             android:textColorHint="@color/secondary_text"
-            android:textSize="@dimen/_13ssp"
-            android:importantForAutofill="no"/>
+            android:textSize="@dimen/_13ssp" />
 
         <EditText
             android:id="@+id/inputConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/background_input"
             android:layout_marginTop="@dimen/_20sdp"
-            android:inputType="textPassword"
+            android:background="@drawable/background_input"
+            android:fontFamily="@font/adamina"
             android:hint="@string/confirm_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
             android:padding="@dimen/_8sdp"
             android:paddingStart="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
             android:textColor="@color/primary_hint"
             android:textColorHint="@color/secondary_text"
-            android:textSize="@dimen/_13ssp"
-            android:importantForAutofill="no"/>
+            android:textSize="@dimen/_13ssp" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -146,11 +152,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/oxygen"
                 android:text="@string/sign_up"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"
-                app:cornerRadius="@dimen/_8sdp"
-                android:textColor="@color/white"/>
+                app:cornerRadius="@dimen/_8sdp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -166,11 +173,13 @@
             android:id="@+id/invokeSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:fontFamily="@font/oxygen"
             android:text="@string/sign_in_instead"
             android:textColor="@color/primary_text"
-            android:layout_marginTop="@dimen/_20sdp"
             android:textSize="@dimen/_13ssp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

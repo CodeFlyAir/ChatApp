@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChatApp</string>
+    <string name="app_name">Hey!</string>
     <string name="create_new_account">Create New Account</string>
     <string name="sign_in">sign in</string>
     <string name="password">Password</string>

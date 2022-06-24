@@ -24,6 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/oxygen"
         android:text="@string/select_user"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
@@ -73,15 +74,15 @@
             android:id="@+id/textErrorMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_25sdp"
-            android:layout_marginEnd="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_130sdp"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_130sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textSize="@dimen/_17ssp"
-            android:fontFamily="sans-serif"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

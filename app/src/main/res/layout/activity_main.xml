@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:tint="@color/white"/>
-    
+
     <TextView
         android:id="@+id/textName"
         android:layout_width="0dp"
@@ -41,15 +41,16 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:fontFamily="@font/oxygen"
         android:gravity="center"
+        android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/imageProfile"
         app:layout_constraintEnd_toStartOf="@id/imageSignOut"
         app:layout_constraintStart_toEndOf="@id/imageProfile"
-        app:layout_constraintTop_toTopOf="@id/imageProfile"/>
+        app:layout_constraintTop_toTopOf="@id/imageProfile" />
 
     <FrameLayout
         android:layout_width="match_parent"
