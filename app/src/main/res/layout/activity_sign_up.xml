@@ -64,22 +64,44 @@
             android:textSize="@dimen/_13ssp"
             android:textColorHint="@color/secondary_text"
             android:importantForAutofill="no"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/inputPhone"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/background_input"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:inputType="textEmailAddress"
-            android:hint="@string/phone"
-            android:padding="@dimen/_8sdp"
-            android:paddingStart="@dimen/_14sdp"
-            android:paddingEnd="@dimen/_14sdp"
-            android:textColor="@color/primary_hint"
-            android:textColorHint="@color/secondary_text"
-            android:textSize="@dimen/_13ssp"
-            android:importantForAutofill="no"/>
+            <TextView
+                android:id="@+id/code"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/background_input"
+                android:gravity="center"
+                android:padding="@dimen/_8sdp"
+                android:paddingStart="@dimen/_14sdp"
+                android:paddingEnd="@dimen/_14sdp"
+                android:text="@string/_91"
+                android:textColor="@color/primary_hint"
+                android:textSize="@dimen/_13ssp" />
+
+            <EditText
+                android:id="@+id/inputPhone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/background_input"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:inputType="phone"
+                android:hint="@string/phone"
+                android:padding="@dimen/_8sdp"
+                android:paddingStart="@dimen/_14sdp"
+                android:paddingEnd="@dimen/_14sdp"
+                android:textColor="@color/primary_hint"
+                android:textColorHint="@color/secondary_text"
+                android:textSize="@dimen/_13ssp"
+                android:importantForAutofill="no"
+                android:layout_toEndOf="@id/code"/>
+        </RelativeLayout>
+
+
 
         <EditText
             android:id="@+id/inputPassword"

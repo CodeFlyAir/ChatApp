@@ -15,4 +15,10 @@
     <string name="select_user">Select User</string>
     <string name="type_a_message">Type a Message</string>
     <string name="online">Online</string>
+    <string name="verify">Verify</string>
+    <string name="enter_your_otp_here">Your OTP Here</string>
+    <string name="didnt_receive_code">Didn\'t Receive Code?</string>
+    <string name="resend_it">Resend It</string>
+    <string name="verify_and_sign_up">Verify and Sign Up</string>
+    <string name="_91">+91</string>
 </resources>

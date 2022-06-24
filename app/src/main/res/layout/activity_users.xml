@@ -58,16 +58,29 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center"/>
 
+        <ImageView
+            android:id="@+id/vectorError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/roboillustration"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/textErrorMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_25sdp"
             android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_130sdp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textColor="@color/error"
-            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_17ssp"
+            android:fontFamily="sans-serif"
             android:visibility="gone"/>
     </FrameLayout>
 

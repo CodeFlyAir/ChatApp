@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_280sdp"
+    android:layout_height="@dimen/_280sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_otp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/txt_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/verify"
+        android:textSize="@dimen/_50sdp"
+        android:textColor="@color/primary_text"
+        android:textStyle="normal"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_your_otp_here"
+        android:textSize="@dimen/_20sdp"
+        android:textColor="@color/primary_text"
+        android:textStyle="normal"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_below="@id/txt_verify"/>
+
+    <com.chaos.view.PinView
+        android:id="@+id/pinViewText"
+        style="@style/PinWidget.PinView"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_below="@id/text2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:elevation="@dimen/_10sdp"
+        android:inputType="number"
+        android:itemBackground="#4AFFEA"
+        android:textColor="@color/otp_text"
+        android:textSize="@dimen/_20sdp"
+        app:itemCount="6"
+        app:itemRadius="@dimen/_7sdp"
+        app:itemSpacing="@dimen/_5sdp"
+        app:viewType="rectangle" />
+
+    <RelativeLayout
+        android:id="@+id/resendLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_below="@id/pinViewText"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/didnt_receive_code"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/primary_text"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/resendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_it"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_toEndOf="@id/text3"
+            android:textStyle="bold"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_13sdp" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/verifyButton"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:layout_below="@id/resendLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/verify_and_sign_up"
+        android:textAllCaps="false"
+        android:textColor="@color/otp_text"
+        android:textSize="@dimen/_13sdp"
+        android:theme="@style/Theme.MaterialComponents"
+        app:backgroundTint="#4AFFEA"
+        app:cornerRadius="@dimen/_5sdp"
+        app:strokeColor="@color/primary_hint"
+        app:strokeWidth="@dimen/_1sdp" />
+
+
+
+</RelativeLayout>
