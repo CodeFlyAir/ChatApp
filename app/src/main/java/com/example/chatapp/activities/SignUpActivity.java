@@ -300,8 +300,10 @@ public class SignUpActivity extends AppCompatActivity
         checkForExistingUser(binding.inputPhone.getText().toString().trim());
         if ( encodedImage == null )
         {
-            showToast("Select Profile Image");
-            return false;
+            Bitmap bitmap=BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.blankprofilepicture);
+            encodedImage=encodeImage(bitmap);
+            binding.imageProfile.setImageBitmap(bitmap);
+            return true;
         }
         else if ( binding.inputName.getText().toString().trim().isEmpty() )
         {
