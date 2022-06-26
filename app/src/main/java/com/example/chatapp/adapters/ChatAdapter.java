@@ -2,6 +2,7 @@ package com.example.chatapp.adapters;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.chatapp.databinding.ItemContainerRecievedMessageBinding;
 import com.example.chatapp.databinding.ItemContainerSentMessageBinding;
 import com.example.chatapp.models.ChatMessage;
+import com.example.chatapp.utilities.Constants;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -89,8 +93,19 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         
         void setData (ChatMessage chatMessage)
         {
-            binding.textMessage.setText(chatMessage.message);
-            binding.textDateAndTime.setText(chatMessage.dateTime);
+            if ( Objects.equals(chatMessage.messageType, Constants.KEY_MESSAGE_TYPE_IS_TEXT) )
+            {
+                binding.textMessage.setText(chatMessage.message);
+                binding.textDateAndTime.setText(chatMessage.dateTime);
+            }
+            else if ( Objects.equals(chatMessage.messageType, Constants.KEY_MESSAGE_TYPE_IS_IMAGE) )
+            {
+                binding.textMessage.setVisibility(View.GONE);
+                binding.textDateAndTime.setVisibility(View.GONE);
+                binding.imagePlaceholder.setVisibility(View.VISIBLE);
+                
+                Picasso.get().load(chatMessage.message).into(binding.imagePlaceholder);
+            }
         }
     }
     
@@ -106,12 +121,25 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         
         void setData (ChatMessage chatMessage, Bitmap receiverProfileImage)
         {
-            binding.textMessage.setText(chatMessage.message);
-            binding.textDateAndTime.setText(chatMessage.dateTime);
-            if ( receiverProfileImage != null )
+            if ( Objects.equals(chatMessage.messageType, Constants.KEY_MESSAGE_TYPE_IS_TEXT) )
             {
-                binding.imageProfile.setImageBitmap(receiverProfileImage);
+                binding.textMessage.setText(chatMessage.message);
+                binding.textDateAndTime.setText(chatMessage.dateTime);
+    
+                if ( receiverProfileImage != null )
+                {
+                    binding.imageProfile.setImageBitmap(receiverProfileImage);
+                }
             }
+            else if ( Objects.equals(chatMessage.messageType, Constants.KEY_MESSAGE_TYPE_IS_IMAGE) )
+            {
+                binding.textMessage.setVisibility(View.GONE);
+                binding.textDateAndTime.setVisibility(View.GONE);
+                binding.imagePlaceholder.setVisibility(View.VISIBLE);
+                
+                Picasso.get().load(chatMessage.message).into(binding.imagePlaceholder);
+            }
+            
         }
     }
 }

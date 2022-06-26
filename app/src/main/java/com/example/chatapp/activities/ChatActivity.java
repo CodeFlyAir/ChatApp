@@ -1,12 +1,22 @@
 package com.example.chatapp.activities;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import com.example.chatapp.adapters.ChatAdapter;
@@ -18,12 +28,20 @@ import com.example.chatapp.network.ApiService;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +70,7 @@ public class ChatActivity extends BaseActivity
     private FirebaseFirestore database;
     private String conversationId = null;
     private boolean isReceiverAvailable = false;
+    private StorageTask storageTask;
     
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -72,25 +91,11 @@ public class ChatActivity extends BaseActivity
         message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
+        message.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_MESSAGE_TYPE_IS_TEXT);
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
         
-        if ( conversationId != null )
-        {
-            updateConversation(binding.inputMessage.getText().toString());
-        }
-        else
-        {
-            HashMap<String, Object> conversation = new HashMap<>();
-            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
-            conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
-            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
-            conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.name);
-            conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
-            conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString().trim());
-            conversation.put(Constants.KEY_TIMESTAMP, new Date());
-            addConversation(conversation);
-        }
+        recentConversation(binding.inputMessage.getText().toString(), Constants.KEY_MESSAGE_TYPE_IS_TEXT);
+        
         if ( !isReceiverAvailable )
         {
             try
@@ -116,6 +121,28 @@ public class ChatActivity extends BaseActivity
         }
         
         binding.inputMessage.setText(null);
+    }
+    
+    private void recentConversation (String lastMessage, String messageType)
+    {
+        if ( conversationId != null )
+        {
+            updateConversation(lastMessage, messageType);
+        }
+        else
+        {
+            HashMap<String, Object> conversation = new HashMap<>();
+            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
+            conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
+            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+            conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.name);
+            conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
+            conversation.put(Constants.KEY_LAST_MESSAGE, lastMessage);
+            conversation.put(Constants.KEY_MESSAGE_TYPE, messageType);
+            conversation.put(Constants.KEY_TIMESTAMP, new Date());
+            addConversation(conversation);
+        }
     }
     
     private void listenAvailabilityOfReceiver ()
@@ -176,13 +203,14 @@ public class ChatActivity extends BaseActivity
                 .addOnSuccessListener(documentReference -> conversationId = documentReference.getId());
     }
     
-    private void updateConversation (String message)
+    private void updateConversation (String message, String messageType)
     {
         DocumentReference documentReference = database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
                 .document(conversationId);
         documentReference.update(
                 Constants.KEY_LAST_MESSAGE, message
                 , Constants.KEY_TIMESTAMP, new Date()
+                , Constants.KEY_MESSAGE_TYPE, messageType
         );
     }
     
@@ -204,6 +232,7 @@ public class ChatActivity extends BaseActivity
                     chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
                     chatMessage.dateTime = getReadableDateAndTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
                     chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
+                    chatMessage.messageType = documentChange.getDocument().getString(Constants.KEY_MESSAGE_TYPE);
                     chatMessages.add(chatMessage);
                 }
             }
@@ -258,7 +287,75 @@ public class ChatActivity extends BaseActivity
     {
         binding.imageBack.setOnClickListener(v -> onBackPressed());
         binding.layoutSend.setOnClickListener(v -> sendMessage());
+        binding.layoutSendMedia.setOnClickListener(v -> sendMedia());
     }
+    
+    private void sendMedia ()
+    {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        pickImage.launch(intent);
+    }
+    
+    private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
+            {
+                @Override
+                public void onActivityResult (ActivityResult result)
+                {
+                    if ( result.getResultCode() == RESULT_OK )
+                    {
+                        if ( result.getData() != null )
+                        {
+                            Uri imageUri = result.getData().getData();
+                            try
+                            {
+                                ProgressDialog progressDialog=new ProgressDialog(ChatActivity.this);
+                                progressDialog.setCanceledOnTouchOutside(false);
+                                progressDialog.show();
+                                StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                                        .child(Constants.KEY_COLLECTION_IMAGE)
+                                        .child(conversationId + "/")
+                                        .child(imageUri.getLastPathSegment() + ".jpg");
+                                storageReference.putFile(imageUri)
+                                        .addOnSuccessListener(taskSnapshot ->
+                                        {
+                                            progressDialog.dismiss();
+                                            storageReference.getDownloadUrl().addOnCompleteListener(task ->
+                                            {
+                                                String downloadLink = task.getResult().toString();
+                                                HashMap<String, Object> message = new HashMap<>();
+                                                message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+                                                message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+                                                message.put(Constants.KEY_MESSAGE, downloadLink);
+                                                message.put(Constants.KEY_TIMESTAMP, new Date());
+                                                message.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_MESSAGE_TYPE_IS_IMAGE);
+                                                database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+        
+                                                recentConversation("Image", Constants.KEY_MESSAGE_TYPE_IS_IMAGE);
+                                            });
+                                        })
+                                        .addOnFailureListener(e -> showToast("Image Upload Failed"))
+                                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>()
+                                        {
+                                            @Override
+                                            public void onProgress (@NonNull UploadTask.TaskSnapshot snapshot)
+                                            {
+                                                int progress= (int) (100*(snapshot.getBytesTransferred()/snapshot.getTotalByteCount()));
+                                                progressDialog.setProgress(progress);
+                                                progressDialog.setMessage("Uploaded\t"+progress+"%");
+                                            }
+                                        });
+                                
+                            } catch ( Exception e )
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+    );
     
     private String getReadableDateAndTime (Date date)
     {
