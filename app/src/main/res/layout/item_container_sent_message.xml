@@ -23,10 +23,10 @@
 
     <ImageView
         android:id="@+id/imagePlaceholder"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="@dimen/_170sdp"
+        android:layout_height="@dimen/_170sdp"
         android:contentDescription="@string/image"
-        android:padding="@dimen/_8sdp"
+        android:padding="@dimen/_2sdp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

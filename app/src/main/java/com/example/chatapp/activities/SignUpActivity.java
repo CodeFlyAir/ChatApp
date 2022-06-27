@@ -28,8 +28,6 @@ import com.example.chatapp.R;
 import com.example.chatapp.databinding.ActivitySignUpBinding;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -37,7 +35,6 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -350,20 +347,16 @@ public class SignUpActivity extends AppCompatActivity
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection(Constants.KEY_COLLECTION_USERS)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                .addOnCompleteListener(task ->
                 {
-                    @Override
-                    public void onComplete (@NonNull Task<QuerySnapshot> task)
+                    if ( task.isSuccessful() && task.getResult() != null )
                     {
-                        if ( task.isSuccessful() && task.getResult() != null )
+                        for ( QueryDocumentSnapshot queryDocumentSnapshot : task.getResult() )
                         {
-                            for ( QueryDocumentSnapshot queryDocumentSnapshot : task.getResult() )
+                            if ( phone.equals(queryDocumentSnapshot.getString(Constants.KEY_PHONE)) )
                             {
-                                if ( phone.equals(queryDocumentSnapshot.getString(Constants.KEY_PHONE)) )
-                                {
-                                    showToast("Account already exists");
-                                    finish();
-                                }
+                                showToast("Account already exists");
+                                finish();
                             }
                         }
                     }

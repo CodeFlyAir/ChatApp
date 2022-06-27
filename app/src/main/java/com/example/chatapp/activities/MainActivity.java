@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.chatapp.R;
 import com.example.chatapp.adapters.RecentConversationAdapter;
 import com.example.chatapp.databinding.ActivityMainBinding;
 import com.example.chatapp.listeners.ConversationListener;
@@ -42,6 +45,7 @@ public class MainActivity extends BaseActivity implements ConversationListener
     private List<ChatMessage> conversations;
     private RecentConversationAdapter conversationAdapter;
     private FirebaseFirestore database;
+    private Animation animation;
     
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -51,6 +55,8 @@ public class MainActivity extends BaseActivity implements ConversationListener
         setContentView(binding.getRoot());
         
         preferenceManager = new PreferenceManager(getApplicationContext());
+        animation = AnimationUtils.loadAnimation(this, R.anim.blink);
+        
         init();
         loadUserDetails();
         getToken();
@@ -71,6 +77,7 @@ public class MainActivity extends BaseActivity implements ConversationListener
         binding.imageSignOut.setOnClickListener(v -> signOut());
         binding.fabNewChat.setOnClickListener(v ->
         {
+            animation.cancel();
             if ( ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED )
             {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS},
@@ -80,6 +87,7 @@ public class MainActivity extends BaseActivity implements ConversationListener
             {
                 startActivity(new Intent(getApplicationContext(), UsersActivity.class));
             }
+            
         });
     }
     
@@ -158,7 +166,13 @@ public class MainActivity extends BaseActivity implements ConversationListener
             Collections.sort(conversations, (obj1, obj2) -> obj2.dateObject.compareTo(obj1.dateObject));
             conversationAdapter.notifyDataSetChanged();
             if ( conversations.size() != 0 )
+            {
                 binding.conversationRecyclerView.smoothScrollToPosition(conversations.size() - 1);
+            }
+            else
+            {
+                binding.fabNewChat.startAnimation(animation);
+            }
             binding.conversationRecyclerView.setVisibility(View.VISIBLE);
             binding.progressBar.setVisibility(View.GONE);
         }

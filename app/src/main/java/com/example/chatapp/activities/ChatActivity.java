@@ -420,7 +420,6 @@ public class ChatActivity extends BaseActivity
                                 return;
                             }
                         }
-                        showToast("Notification sent successfully");
                     } catch ( JSONException e )
                     {
                         e.printStackTrace();

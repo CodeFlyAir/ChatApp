@@ -32,15 +32,14 @@
 
     <ImageView
         android:id="@+id/imagePlaceholder"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="@dimen/_170sdp"
+        android:layout_height="@dimen/_170sdp"
         android:contentDescription="@string/image"
-        android:padding="@dimen/_8sdp"
+        android:padding="@dimen/_2sdp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="wrap"
-        app:layout_constraintWidth_percent="0.7" />
+        android:foregroundGravity="left" />
 
     <TextView
         android:id="@+id/textDateAndTime"
