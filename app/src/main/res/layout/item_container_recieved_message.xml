@@ -35,11 +35,11 @@
         android:layout_width="@dimen/_170sdp"
         android:layout_height="@dimen/_170sdp"
         android:contentDescription="@string/image"
+        android:foregroundGravity="left"
         android:padding="@dimen/_2sdp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:foregroundGravity="left" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textDateAndTime"

@@ -89,7 +89,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/verifyButton"
         android:layout_width="@dimen/_160sdp"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_height="@dimen/_130sdp"
         android:layout_below="@id/resendLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_7sdp"

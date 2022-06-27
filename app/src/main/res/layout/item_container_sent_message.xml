@@ -42,7 +42,7 @@
         android:fontFamily="@font/oxygen"
         android:textColor="@color/secondary_text"
         android:textSize="@dimen/_8ssp"
-        app:layout_constraintTop_toBottomOf="@id/textMessage"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMessage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

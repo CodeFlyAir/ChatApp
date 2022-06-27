@@ -297,8 +297,8 @@ public class SignUpActivity extends AppCompatActivity
         checkForExistingUser(binding.inputPhone.getText().toString().trim());
         if ( encodedImage == null )
         {
-            Bitmap bitmap=BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.blankprofilepicture);
-            encodedImage=encodeImage(bitmap);
+            Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.blankprofilepicture);
+            encodedImage = encodeImage(bitmap);
             binding.imageProfile.setImageBitmap(bitmap);
             return true;
         }
@@ -328,7 +328,7 @@ public class SignUpActivity extends AppCompatActivity
             showToast("Confirm Password");
             return false;
         }
-        else if ( binding.inputPassword.getText().toString().trim().length()<6 )
+        else if ( binding.inputPassword.getText().toString().trim().length() < 6 )
         {
             showToast("Minimum Password length is 6");
             return false;

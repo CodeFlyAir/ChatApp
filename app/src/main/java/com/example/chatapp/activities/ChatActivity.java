@@ -8,9 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -28,9 +26,6 @@ import com.example.chatapp.network.ApiService;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,10 +33,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +62,7 @@ public class ChatActivity extends BaseActivity
     private FirebaseFirestore database;
     private String conversationId = null;
     private boolean isReceiverAvailable = false;
-    private StorageTask storageTask;
+    
     
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -310,7 +302,7 @@ public class ChatActivity extends BaseActivity
                             Uri imageUri = result.getData().getData();
                             try
                             {
-                                ProgressDialog progressDialog=new ProgressDialog(ChatActivity.this);
+                                ProgressDialog progressDialog = new ProgressDialog(ChatActivity.this);
                                 progressDialog.setCanceledOnTouchOutside(false);
                                 progressDialog.show();
                                 StorageReference storageReference = FirebaseStorage.getInstance().getReference()
@@ -331,20 +323,16 @@ public class ChatActivity extends BaseActivity
                                                 message.put(Constants.KEY_TIMESTAMP, new Date());
                                                 message.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_MESSAGE_TYPE_IS_IMAGE);
                                                 database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
-        
+                                                
                                                 recentConversation("Image", Constants.KEY_MESSAGE_TYPE_IS_IMAGE);
                                             });
                                         })
                                         .addOnFailureListener(e -> showToast("Image Upload Failed"))
-                                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>()
+                                        .addOnProgressListener(snapshot ->
                                         {
-                                            @Override
-                                            public void onProgress (@NonNull UploadTask.TaskSnapshot snapshot)
-                                            {
-                                                int progress= (int) (100*(snapshot.getBytesTransferred()/snapshot.getTotalByteCount()));
-                                                progressDialog.setProgress(progress);
-                                                progressDialog.setMessage("Uploaded\t"+progress+"%");
-                                            }
+                                            int progress = (int) (100 * (snapshot.getBytesTransferred() / snapshot.getTotalByteCount()));
+                                            progressDialog.setProgress(progress);
+                                            progressDialog.setMessage("Uploaded\t" + progress + "%");
                                         });
                                 
                             } catch ( Exception e )
@@ -417,7 +405,6 @@ public class ChatActivity extends BaseActivity
                             {
                                 JSONObject error = (JSONObject) results.get(0);
                                 showToast(error.getString("error"));
-                                return;
                             }
                         }
                     } catch ( JSONException e )
