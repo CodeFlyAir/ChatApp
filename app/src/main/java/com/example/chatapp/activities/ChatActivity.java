@@ -278,7 +278,11 @@ public class ChatActivity extends BaseActivity
     private void setListeners ()
     {
         binding.imageBack.setOnClickListener(v -> onBackPressed());
-        binding.layoutSend.setOnClickListener(v -> sendMessage());
+        binding.layoutSend.setOnClickListener(v ->
+        {
+            if( !binding.inputMessage.getText().toString().equals("") )
+                sendMessage();
+        });
         binding.layoutSendMedia.setOnClickListener(v -> sendMedia());
     }
     
