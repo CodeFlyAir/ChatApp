@@ -34,6 +34,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/imageBack" />
 
+    <TextView
+        android:id="@+id/textInvite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oxygen"
+        android:text="@string/invite"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imageBack"
+        app:layout_constraintTop_toTopOf="@id/imageBack"/>
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

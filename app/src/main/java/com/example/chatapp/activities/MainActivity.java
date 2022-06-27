@@ -1,6 +1,9 @@
 package com.example.chatapp.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -88,6 +91,31 @@ public class MainActivity extends BaseActivity implements ConversationListener
                 startActivity(new Intent(getApplicationContext(), UsersActivity.class));
             }
             
+        });
+        
+        binding.imageProfile.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v)
+            {
+                CharSequence[] items={
+                        "Credits"
+                };
+                AlertDialog.Builder dialog= new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("Select Option");
+                dialog.setItems(items, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick (DialogInterface dialog, int which)
+                    {
+                        if(which==0)
+                        {
+                            startActivity(new Intent(MainActivity.this,CreditsActivity.class));
+                        }
+                    }
+                });
+                dialog.show();
+            }
         });
     }
     

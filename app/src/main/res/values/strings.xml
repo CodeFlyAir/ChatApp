@@ -22,4 +22,10 @@
     <string name="verify_and_sign_up">Verify and Sign Up</string>
     <string name="_91">+91</string>
     <string name="image">Image</string>
+    <string name="invite">Invite</string>
+    <string name="credits">Credits</string>
+    <string name="app_development_rungshit_saha">App Development : Rungshit Saha</string>
+    <string name="github_logo">Github Logo</string>
+    <string name="linkedin_logo">LinkedIn Logo</string>
+    <string name="instagram_logo">Instagram Logo</string>
 </resources>

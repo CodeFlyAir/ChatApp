@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1775" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/background_chat_input.xml" value="0.1665" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/background_content_bottom.xml" value="0.1665" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/background_content_top.xml" value="0.1665" />
@@ -12,7 +13,17 @@
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/background_otp.xml" value="0.1775" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/background_recieved_message.xml" value="0.1665" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/background_sent_message.xml" value="0.1665" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_add.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_back.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_close.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_info.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_logout.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_notification.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_send.xml" value="0.1775" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/drawable/ic_send_media.xml" value="0.1775" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/layout/activity_chat.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/layout/activity_credits.xml" value="0.190625" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/layout/activity_sign_in.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProjects/ChatApp/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
